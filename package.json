@@ -1,6 +1,7 @@
 {
   "name": "perfima",
   "private": true,
+  "author": "EliuX",
   "workspaces": [
     "apps/*"
   ],
