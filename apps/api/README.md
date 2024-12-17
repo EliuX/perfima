@@ -27,6 +27,11 @@ Open your browser and navigate to http://localhost:3000/.
 $ yarn run test 
 ```
 
-## Deployment
-TODO
+### Required services
+
+In this project we are going to use [MongoDB Community Edition](https://www.mongodb.com/docs/manual/administration/install-community/).
+This and any other required services to try in development mode shall be available via the docker-compose configuration 
+in this project.
+
+
 
