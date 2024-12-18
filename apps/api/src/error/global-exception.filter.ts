@@ -4,10 +4,15 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
+  private readonly logger = new Logger(GlobalExceptionFilter.name, {
+    timestamp: true,
+  });
+
   catch(exception: unknown, host: ArgumentsHost): void {
     const statusCode =
       exception instanceof HttpException
@@ -18,6 +23,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       exception instanceof HttpException
         ? exception.message
         : 'Unexpected error. Our team is working to solve this issue.';
+
+    this.logger.error((exception as Error).stack);
 
     GlobalExceptionFilter.respondWithStandardFormat(host, statusCode, message);
   }
