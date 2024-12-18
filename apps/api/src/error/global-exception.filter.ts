@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
+import { respondWithStandardFormat } from './errorUtils';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
@@ -24,24 +25,9 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         ? exception.message
         : 'Unexpected error. Our team is working to solve this issue.';
 
-    this.logger.error((exception as Error).stack);
+    if (statusCode === HttpStatus.INTERNAL_SERVER_ERROR)
+      this.logger.error(exception);
 
-    GlobalExceptionFilter.respondWithStandardFormat(host, statusCode, message);
-  }
-
-  public static respondWithStandardFormat(
-    host: ArgumentsHost,
-    statusCode: number,
-    message: string | object,
-  ): void {
-    const ctx = host.switchToHttp();
-    const request = ctx.getRequest<Request>();
-
-    ctx.getResponse().status(statusCode).json({
-      statusCode,
-      message,
-      timestamp: new Date().toISOString(),
-      path: request.url,
-    });
+    respondWithStandardFormat(host, statusCode, message);
   }
 }

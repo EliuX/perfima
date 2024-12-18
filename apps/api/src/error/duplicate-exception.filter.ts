@@ -1,6 +1,7 @@
-import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
 import { MongoBulkWriteError } from 'mongodb';
 import { GlobalExceptionFilter } from './global-exception.filter';
+import { respondWithStandardFormat } from './errorUtils';
 
 @Catch(MongoBulkWriteError)
 export class DuplicateExceptionFilter
@@ -8,9 +9,9 @@ export class DuplicateExceptionFilter
 {
   catch(exception: MongoBulkWriteError, host: ArgumentsHost) {
     const conflictingValues = this.extractDuplicateKeyErrors(exception);
-    GlobalExceptionFilter.respondWithStandardFormat(
+    respondWithStandardFormat(
       host,
-      400,
+      HttpStatus.BAD_REQUEST,
       conflictingValues,
     );
   }

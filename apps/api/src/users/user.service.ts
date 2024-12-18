@@ -27,7 +27,7 @@ export class UserService {
     const user = await this.userRepository.findOneBy({ _id: convertStringToObjectId(uid) });
 
     if (!user) {
-      throw new NotFoundException(`User with ID ${uid} not found`);
+      throw new NotFoundException(`User with ID "${uid}" was not found`);
     }
 
     return user;
@@ -46,7 +46,7 @@ export class UserService {
     const id = convertStringToObjectId(uid);
     const result = await this.userRepository.delete({ id });
     if (!result.affected) {
-      throw new NotFoundException(`User with ID ${uid} not found`);
+      throw new NotFoundException(`User with ID "${uid}" was not found`);
     }
   }
 }
