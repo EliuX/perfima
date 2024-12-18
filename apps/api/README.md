@@ -3,29 +3,50 @@ API
 
 This is an API for the Perfima project. It uses the [Nest](https://github.com/nestjs/nest) framework.
 
+### Prerequisites
+
+* Docker and Docker Compose v27+ installed. 
+  Remember to have the Docker service running when executing the app locally.
+* NodeJS v18+ installed.
+* Yarn is used as package manager, but not necessary.
+
 ## Project setup
+   
+   Install the dependencies
 
-```bash
-$ yarn install
-```
+   ```bash
+   $ yarn install
+   ```
 
-## Compile and run the project
+## How to demo
 
-```bash
-# development
-$ yarn run start
-```
+1. Start MongoDB
 
-Open your browser and navigate to http://localhost:3000/.
+   ```bash
+   $ docker-compose up -d   
+   ```
+   By default, docker-compose will use the environment variables in  './.env', but if 
+   you want to another set, you can do it with:
 
-> You can change the port with the env variable `PORT`
+   ```bash
+   $ docker-compose --env-file path/to/another.env up -d
+   ```
+
+2. Run the API locally
+    
+   ```bash 
+   $ yarn start
+   ```
+    
+   Open your browser and navigate to http://localhost:3000/.
+
+   > You can change the port with the env variable `PORT`
 
 ## Run tests
 
-```bash
-# unit tests
-$ yarn run test 
-```
+   ```bash
+   $ yarn run test 
+   ```
 
 ### Required services
 
