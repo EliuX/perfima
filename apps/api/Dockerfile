@@ -13,7 +13,7 @@ RUN npm ci
 COPY . .
 
 # Expose the application port
-EXPOSE 3000
+EXPOSE ${PORT}
 
 # Start the application
 CMD ["npm", "run", "start"]
