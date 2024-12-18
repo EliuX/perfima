@@ -7,3 +7,6 @@ export const convertObjectIdToString = (id: ObjectId) => {
 export const convertStringToObjectId = (uid: string) => {
   return ObjectId.createFromHexString(uid);
 };
+
+
+export type CommonReadOnlyAttributes = '_id' | 'createdAt' | 'updatedAt';

@@ -10,39 +10,57 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './user.entity';
+import { User } from './model/user.entity';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse, ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
+
+import { CreateUserDto } from './model/create-user.dto';
+import { UpdateUserDto } from './model/update-user.dto';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async createUser(
-    @Body() body: { name: string; email: string; password: string },
-  ): Promise<User> {
-    return this.userService.createUser(body.name, body.email, body.password);
+  @ApiBody({ type: CreateUserDto })
+  @ApiCreatedResponse({ description: 'The user has been successfully created.'})
+  @ApiBadRequestResponse({  description: 'There was an error in the request.'})
+  async createUser(@Body() dto: User): Promise<User> {
+    return this.userService.createUser(dto);
   }
 
   @Get()
+  @ApiOkResponse({ description: 'The list of users has been successfully retrieved.'})
   async getAllUsers(): Promise<User[]> {
     return this.userService.findAll();
   }
 
   @Get(':id')
+  @ApiOkResponse({ description: 'The corresponding user has been successfully retrieved.'})
+  @ApiNotFoundResponse({ description: 'There is no user with the specified ID.'})
   async getUserById(@Param('id') uid: string): Promise<User> {
     return this.userService.findOne(uid);
   }
 
   @Put(':id')
+  @ApiBody({ type: UpdateUserDto })
+  @ApiOkResponse({ description: 'The user has been successfully updated.'})
+  @ApiNotFoundResponse({ description: 'There is no user with the specified ID.'})
   async updateUser(
     @Param('id') uid: string,
-    @Body() updateData: Partial<User>,
+    @Body()  updateData: UpdateUserDto,
   ): Promise<User> {
     return this.userService.updateUser(uid, updateData);
   }
 
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse({ description: 'The user has been successfully deleted.'})
+  @ApiNotFoundResponse({ description: 'There is no user with the specified ID.'})
   async deleteUser(@Param('id') uid: string): Promise<void> {
     return this.userService.deleteUser(uid);
   }

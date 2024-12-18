@@ -17,6 +17,10 @@ export class ConfigService {
     return `mongodb://${user}:${pass}@${host}:${port}/${db}?authSource=admin`;
   }
 
+  public getApiServerPort() {
+    return this.configService.get('PORT');
+  }
+
 
   public isProduction() {
     const mode = this.configService.get('MODE');
