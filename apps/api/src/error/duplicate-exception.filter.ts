@@ -1,6 +1,10 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpStatus,
+} from '@nestjs/common';
 import { MongoBulkWriteError } from 'mongodb';
-import { GlobalExceptionFilter } from './global-exception.filter';
 import { respondWithStandardFormat } from './errorUtils';
 
 @Catch(MongoBulkWriteError)
@@ -9,11 +13,7 @@ export class DuplicateExceptionFilter
 {
   catch(exception: MongoBulkWriteError, host: ArgumentsHost) {
     const conflictingValues = this.extractDuplicateKeyErrors(exception);
-    respondWithStandardFormat(
-      host,
-      HttpStatus.BAD_REQUEST,
-      conflictingValues,
-    );
+    respondWithStandardFormat(host, HttpStatus.BAD_REQUEST, conflictingValues);
   }
 
   private extractDuplicateKeyErrors(exception: MongoBulkWriteError): {
@@ -24,7 +24,7 @@ export class DuplicateExceptionFilter
     const writeErrors =
       exception.writeErrors instanceof Array
         ? exception.writeErrors
-        : [exception.writeErrors];
+        : [exception.writeErrors].filter(Boolean);
 
     writeErrors.forEach((writeError) => {
       const keyValuePairs = writeError.err.errmsg.match(/dup key: { (.+) }/);
