@@ -4,7 +4,7 @@ import {Column, ObjectIdColumn} from "typeorm";
 export abstract class BaseEntity {
 
     @ObjectIdColumn()
-    _id!: ObjectId;
+    id!: ObjectId;
 
     @Column({insert: true})
     createdAt = new Date();
@@ -13,6 +13,6 @@ export abstract class BaseEntity {
     updatedAt = new Date();
 
     get uid(): string {
-        return this._id?.toHexString();
+        return this.id?.toHexString();
     }
 }

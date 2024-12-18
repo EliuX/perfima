@@ -14,19 +14,16 @@ import { User } from './users/model/user.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-          synchronize: !configService.isProduction(),
-          entities: [User],
-          logging: true,
-          type: 'mongodb',
-          url: configService.getMongoURI(),
+        synchronize: !configService.isProduction(),
+        entities: [User],
+        logging: true,
+        type: 'mongodb',
+        url: configService.getMongoURI(),
       }),
       inject: [ConfigService],
     }),
     UserModule,
   ],
-  providers: [
-    AppService,
-  ],
+  providers: [AppService],
 })
-export class AppModule {
-}
+export class AppModule {}
