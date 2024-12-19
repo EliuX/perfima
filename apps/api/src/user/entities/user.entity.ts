@@ -9,7 +9,6 @@ import {
   MinLength,
 } from 'class-validator';
 import { BaseEntity } from '../../shared/base.entity';
-import { Account } from '../../finance/account/entities/account.entity';
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -57,7 +56,4 @@ export class User extends BaseEntity {
 
   @ApiProperty({ required: false, default: true })
   isEnabled?: boolean = true;
-
-  @OneToMany(() => Account, (account) => account.user)
-  accounts: Account[];
 }

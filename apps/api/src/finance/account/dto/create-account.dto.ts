@@ -4,6 +4,6 @@ import { CommonReadOnlyAttributes } from '../../../shared/entityUtils';
 
 export class CreateAccountDto extends OmitType(Account, [
   ...CommonReadOnlyAttributes,
+  'userId',
   'disabled',
-]) {
-}
+]) {}

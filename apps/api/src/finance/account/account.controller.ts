@@ -4,9 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  ParseUUIDPipe,
   Patch,
-  Post,
+  Post, Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -14,6 +13,9 @@ import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { JwtGuard } from '../../auth/guard/jwt.guard';
+import { Account } from './entities/account.entity';
+import { ApiBody } from '@nestjs/swagger';
+import { UpdateUserDto } from '../../user/dto/update-user.dto';
 
 @UseGuards(JwtGuard)
 @Controller('accounts')
@@ -22,7 +24,7 @@ export class AccountController {
 
   @Post()
   create(@Req() req, @Body() createAccountDto: CreateAccountDto) {
-    return this.accountService.create(req.user.sub, createAccountDto);
+    return this.accountService.create(createAccountDto, req.user.sub);
   }
 
   @Get()
@@ -31,27 +33,22 @@ export class AccountController {
   }
 
   @Get(':id')
-  findOne(
-    @Param('userId', ParseUUIDPipe) userId: string,
-    @Param('id') uid: string,
-  ) {
-    return this.accountService.findOne(userId, uid);
+  async findOne(@Req() req, @Param('id') uid: string) {
+    return this.accountService.findOne(uid, req.user.sub);
   }
 
-  @Patch(':id')
-  update(
-    @Param('userId', ParseUUIDPipe) userId: string,
+  @Put(':id')
+  @ApiBody({ type: UpdateAccountDto })
+  async update(
+    @Req() req,
     @Param('id') uid: string,
     @Body() updateAccountDto: UpdateAccountDto,
-  ) {
-    return this.accountService.update(userId, uid, updateAccountDto);
+  ): Promise<Account> {
+    return this.accountService.update(uid, updateAccountDto, req.user.sub);
   }
 
   @Delete(':id')
-  remove(
-    @Param('userId', ParseUUIDPipe) userId: string,
-    @Param('id') uid: string,
-  ) {
-    return this.accountService.remove(userId, uid);
+  async remove(@Req() req, @Param('id') uid: string): Promise<void> {
+    return this.accountService.remove(uid, req.user.sub);
   }
 }
