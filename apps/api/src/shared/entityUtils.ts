@@ -1,7 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { BSONError } from 'typeorm/driver/mongodb/bson.typings';
 import { BadRequestException } from '@nestjs/common';
-import { RuntimeException } from '@nestjs/core/errors/exceptions';
 import { BaseEntity } from './base.entity';
 
 export const convertObjectIdToString = (id: ObjectId) => {

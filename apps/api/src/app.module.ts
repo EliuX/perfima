@@ -4,8 +4,10 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
-import { UserModule } from './users/user.module';
-import { User } from './users/model/user.entity';
+ import { User } from './auth/user/model/user.entity';
+import { AuthModule } from './auth/auth.module';
+import { FinanceModule } from './finance/finance.module';
+import { Account } from './finance/account/entities/account.entity';
 
 @Module({
   controllers: [AppController],
@@ -15,14 +17,15 @@ import { User } from './users/model/user.entity';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         synchronize: !configService.isProduction(),
-        entities: [User],
+        entities: [User, Account],
         logging: true,
         type: 'mongodb',
         url: configService.getMongoURI(),
       }),
       inject: [ConfigService],
     }),
-    UserModule,
+    AuthModule,
+    FinanceModule,
   ],
   providers: [AppService],
 })

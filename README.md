@@ -48,6 +48,9 @@ Before you begin, ensure you have the following installed:
    This process should scan all packages, install the dependencies and resolve version conflicts.
 
 ### Running the Applications
+This is an starting point for executing these applications, but for more information
+check their respective README.md files.
+
 #### API (Backend)
 
 1. Navigate to the API folder:
@@ -58,19 +61,27 @@ Before you begin, ensure you have the following installed:
    
 2. Copy the .env.template to the real .env file:
 
-      ```bash
+    ```bash
     $ cp .env.template .env
     ``` 
    
     Fill it with the right variables
 
-3. Start the API in development mode:
+3. Start the required services (database):
+
+    ```bash
+    $ docker-compose up -d
+    ``` 
+
+4. Start the API in development mode:
 
     ```bash
     $ yarn start:dev
     ```
    
-    Access the API at http://localhost:3000.
+    Access the API at http://localhost:3000. 
+
+    > Remember the port is defined by the env variable `PORT`
 
 ### Webapp (Frontend)
 

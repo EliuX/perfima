@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
 import { User } from './model/user.entity';
-import { convertStringToObjectId } from '../shared/entityUtils';
+import { convertStringToObjectId } from '../../shared/entityUtils';
 import { CreateUserDto } from './model/create-user.dto';
 import { UpdateUserDto } from './model/update-user.dto';
 
