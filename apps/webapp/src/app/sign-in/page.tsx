@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ApiServices } from '../../config';
 import React, {useState} from "react";
 
-export default function SignInPage(props: { disableCustomTheme?: boolean }) {
+export default function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);

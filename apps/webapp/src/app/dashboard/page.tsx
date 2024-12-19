@@ -2,9 +2,10 @@
 
 import React, { useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { router } from 'next/client';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem('token');

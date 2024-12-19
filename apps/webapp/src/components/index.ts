@@ -1,3 +1,3 @@
-export * from './DashboardPage';
-export * from './SignInPage';
-export * from './WelcomePage';
+export * from './Copyright';
+export * from './CustomIcons';
+export * from './ModeSwitch';
