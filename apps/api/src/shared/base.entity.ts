@@ -1,6 +1,5 @@
 import { ObjectId } from 'mongodb';
 import { Column, ObjectIdColumn } from 'typeorm';
-import { convertObjectIdToString } from './entityUtils';
 
 export abstract class BaseEntity {
   @ObjectIdColumn()
@@ -11,8 +10,4 @@ export abstract class BaseEntity {
 
   @Column({ update: true })
   updatedAt = new Date();
-
-  get uid(): string {
-    return convertObjectIdToString(this.id);
-  }
 }

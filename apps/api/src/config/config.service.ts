@@ -3,9 +3,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ConfigService {
-  constructor(private configService: NestConfigService) {
-
-  }
+  constructor(private configService: NestConfigService) {}
 
   public getMongoURI(): string {
     const user = this.configService.get('MONGO_USER');
@@ -28,5 +26,9 @@ export class ConfigService {
 
   public getJWTSecret(): string {
     return this.configService.getOrThrow('JWT_SECRET');
+  }
+
+  public getFrontendOrigin(): string {
+    return this.configService.getOrThrow('FRONTEND_ORIGIN');
   }
 }

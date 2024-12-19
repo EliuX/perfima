@@ -58,7 +58,7 @@ export default function SignInPage() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h3">
             Perfima - Sign in
           </Typography>
           {error && <Alert severity="error">{error}</Alert>}
@@ -92,8 +92,17 @@ export default function SignInPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {loading
-              ? (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              color="primary"
+              disabled={loading}
+            >
+              Sign In
+            </Button>
+            {loading && (
                 <CircularProgress
                   size={24}
                   sx={{
@@ -104,17 +113,6 @@ export default function SignInPage() {
                     marginLeft: '-12px',
                   }}
                 />
-              ) : (
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  color="primary"
-                  disabled={loading}
-                >
-                  Sign In
-                </Button>
               )
             }
           </Box>

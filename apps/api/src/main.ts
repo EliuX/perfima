@@ -1,16 +1,16 @@
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from './config/config.service';
 import { DuplicateExceptionFilter } from './error/duplicate-exception.filter';
 import { GlobalExceptionFilter } from './error/global-exception.filter';
-import { JwtGuard } from './auth/guard/jwt.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
+  app.enableCors({ origin: configService.getFrontendOrigin() });
   setupSwagger(app);
   setupGlobalFilters(app);
 
