@@ -14,7 +14,7 @@ repository contains two main subprojects:
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (version 18 or higher)
+- [Node.js](https://nodejs.org/) (version 20 or higher)
 - [Yarn](https://yarnpkg.com/) preferred package manager for NodeJS.
 - [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
  

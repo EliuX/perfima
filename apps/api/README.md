@@ -7,7 +7,7 @@ This is an API for the Perfima project. It uses the [Nest](https://github.com/ne
 
 * Docker and Docker Compose v27+ installed. 
   Remember to have the Docker service running when executing the app locally.
-* NodeJS v18+ installed.
+* NodeJS v20+ installed.
 * Yarn is used as package manager, but not necessary.
 
 ## Project setup

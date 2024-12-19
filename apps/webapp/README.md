@@ -14,7 +14,6 @@ $ yarn install
 The following command runs the app in the development mode:
 
 ```bash
-# development
 $ yarn start
 ``` 
 
