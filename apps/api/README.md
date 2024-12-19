@@ -42,6 +42,16 @@ This is an API for the Perfima project. It uses the [Nest](https://github.com/ne
 
    > You can change the port with the env variable `PORT`
 
+### Authenticate
+
+For authenticating using the credentials of an existing user you must use the following
+command:
+
+```bash
+$ curl -X POST http://localhost:3000/auth/login -d '{"username": "6763819045fff580d4e42ffc", "password": "stringst"}' -H "Content-Type: application/json"
+{"access_token":"jwt has here...."}
+```
+
 ## Run tests
 
    ```bash

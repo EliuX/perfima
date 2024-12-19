@@ -43,7 +43,7 @@ Before you begin, ensure you have the following installed:
 2. Install dependencies in all the subprojects of the monorepo and link them (bootstrap):
 
     ```bash
-   $ yarn install && yarn bootstrap 
+   $ yarn install
    ``` 
    This process should scan all packages, install the dependencies and resolve version conflicts.
 

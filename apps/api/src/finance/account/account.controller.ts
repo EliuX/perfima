@@ -1,36 +1,58 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+// import { JwtAuthGuard } from '../../auth/auth.guard';
 
-
-@Controller('account')
+// @UseGuards(JwtAuthGuard)
+@Controller('users/:userId/accounts')
 export class AccountController {
-  constructor(private readonly accountService: AccountService) {
-  }
+  constructor(private readonly accountService: AccountService) {}
 
   @Post()
-  create(@Body() createAccountDto: CreateAccountDto) {
-    return this.accountService.create(createAccountDto);
+  create(
+    @Param('userId', ParseUUIDPipe) userId: string,
+    @Body() createAccountDto: CreateAccountDto,
+  ) {
+    return this.accountService.create(userId, createAccountDto);
   }
 
   @Get()
-  findAll() {
-    return this.accountService.findAll();
+  findAll(@Param('userId', ParseUUIDPipe) userId: string) {
+    return this.accountService.findAll(userId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.accountService.findOne(+id);
+  findOne(
+    @Param('userId', ParseUUIDPipe) userId: string,
+    @Param('id') uid: string,
+  ) {
+    return this.accountService.findOne(userId, uid);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAccountDto: UpdateAccountDto) {
-    return this.accountService.update(+id, updateAccountDto);
+  update(
+    @Param('userId', ParseUUIDPipe) userId: string,
+    @Param('id') uid: string,
+    @Body() updateAccountDto: UpdateAccountDto,
+  ) {
+    return this.accountService.update(userId, uid, updateAccountDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.accountService.remove(+id);
+  remove(
+    @Param('userId', ParseUUIDPipe) userId: string,
+    @Param('id') uid: string,
+  ) {
+    return this.accountService.remove(userId, uid);
   }
 }

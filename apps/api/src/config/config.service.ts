@@ -21,9 +21,12 @@ export class ConfigService {
     return this.configService.get('PORT');
   }
 
-
   public isProduction() {
     const mode = this.configService.get('MODE');
     return mode == 'prod' || mode == 'production';
+  }
+
+  public getJWTSecret(): string {
+    return this.configService.get('JWT_SECRET') || 'secret';
   }
 }

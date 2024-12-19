@@ -8,9 +8,8 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { BaseEntity } from '../../../shared/base.entity';
-import { Role } from './role';
-import { Account } from '../../../finance/account/entities/account.entity';
+import { BaseEntity } from '../../shared/base.entity';
+import { Account } from '../../finance/account/entities/account.entity';
 
 @Entity('users')
 export class User extends BaseEntity {

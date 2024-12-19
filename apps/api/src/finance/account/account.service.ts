@@ -1,26 +1,54 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MongoRepository } from 'typeorm';
+import { Account } from './entities/account.entity';
+import { convertStringToObjectId } from '../../shared/entityUtils';
 
 @Injectable()
 export class AccountService {
-  create(createAccountDto: CreateAccountDto) {
-    return 'This action adds a new account';
+  constructor(
+    @InjectRepository(Account)
+    private readonly accountRepository: MongoRepository<Account>,
+  ) {
   }
 
-  findAll() {
-    return `This action returns all account`;
+  create(userId: string, createAccountDto: CreateAccountDto) {
+    const newAccount = this.accountRepository.create({
+      ...createAccountDto,
+      user: convertStringToObjectId(userId),
+    });
+
+    return this.accountRepository.save(newAccount);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} account`;
+  findAll(userId: string) {
+    return this.accountRepository.findBy({
+      user: convertStringToObjectId(userId),
+    });
   }
 
-  update(id: number, updateAccountDto: UpdateAccountDto) {
-    return `This action updates a #${id} account`;
+  findOne(userId: string, uid: string) {
+    return this.accountRepository.findBy({
+      id: convertStringToObjectId(uid),
+      user: convertStringToObjectId(userId),
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} account`;
+  async update(
+    userId: string,
+    uid: string,
+    updateAccountDto: UpdateAccountDto,
+  ) {
+    const account = await this.findOne(userId, uid);
+    Object.assign(account, updateAccountDto);
+    return this.accountRepository.save(account);
+  }
+
+  async remove(userId: string, uid: string) {
+    const account = this.findOne(userId, uid);
+
+    return await this.accountRepository.deleteOne(account);
   }
 }
