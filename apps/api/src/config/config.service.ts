@@ -27,6 +27,6 @@ export class ConfigService {
   }
 
   public getJWTSecret(): string {
-    return this.configService.get('JWT_SECRET') || 'secret';
+    return this.configService.getOrThrow('JWT_SECRET');
   }
 }

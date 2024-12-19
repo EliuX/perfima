@@ -11,20 +11,16 @@ export class AccountService {
   constructor(
     @InjectRepository(Account)
     private readonly accountRepository: MongoRepository<Account>,
-  ) {
-  }
+  ) {}
 
   create(userId: string, createAccountDto: CreateAccountDto) {
-    const newAccount = this.accountRepository.create({
-      ...createAccountDto,
-      user: convertStringToObjectId(userId),
-    });
+    const newAccount = this.accountRepository.create(createAccountDto);
 
     return this.accountRepository.save(newAccount);
   }
 
   findAll(userId: string) {
-    return this.accountRepository.findBy({
+    return this.accountRepository.find({
       user: convertStringToObjectId(userId),
     });
   }

@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from './config/config.service';
 import { DuplicateExceptionFilter } from './error/duplicate-exception.filter';
 import { GlobalExceptionFilter } from './error/global-exception.filter';
+import { JwtGuard } from './auth/guard/jwt.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -33,6 +34,5 @@ function setupGlobalFilters(app: INestApplication): void {
     new DuplicateExceptionFilter(),
   );
 }
-
 
 bootstrap();
