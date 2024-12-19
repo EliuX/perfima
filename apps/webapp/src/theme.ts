@@ -1,18 +1,35 @@
+'use client';
 import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { Roboto } from 'next/font/google';
 
-// A custom theme for this app
+const roboto = Roboto({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
 const theme = createTheme({
-  cssVariables: true,
-  palette: {
-    primary: {
-      main: '#556cd6',
-    },
-    secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: red.A400,
+  colorSchemes: { light: true, dark: true },
+  cssVariables: {
+    colorSchemeSelector: 'class',
+  },
+  typography: {
+    fontFamily: roboto.style.fontFamily,
+  },
+  components: {
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          variants: [
+            {
+              props: { severity: 'info' },
+              style: {
+                backgroundColor: '#60a5fa',
+              },
+            },
+          ],
+        },
+      },
     },
   },
 });

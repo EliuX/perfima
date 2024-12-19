@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { Alert, Box, Button, CircularProgress, Container, CssBaseline, TextField, Typography } from '@mui/material';
-import AppTheme from '../shared-theme/AppTheme';
-import axios from 'axios';
-import { ApiServices } from '../config';
+'use client';
 
-export function SignInPage(props: { disableCustomTheme?: boolean }) {
+import { Alert, Box, Button, CircularProgress, Container, CssBaseline, TextField, Typography } from '@mui/material';
+import axios from 'axios';
+import { ApiServices } from '../../config';
+import React, {useState} from "react";
+
+export default function SignInPage(props: { disableCustomTheme?: boolean }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +47,7 @@ export function SignInPage(props: { disableCustomTheme?: boolean }) {
   }
 
   return (
-    <AppTheme {...props}>
+    <Container maxWidth="lg">
       <CssBaseline enableColorScheme />
       <Container component="main" maxWidth="xs">
         <Box
@@ -120,6 +120,6 @@ export function SignInPage(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Box>
       </Container>
-    </AppTheme>
+    </Container>
   );
 }
