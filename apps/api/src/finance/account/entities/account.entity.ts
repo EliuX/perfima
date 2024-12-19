@@ -1,8 +1,8 @@
 import { Column, Entity, Index } from 'typeorm';
-import { BaseEntity } from 'src/shared/base.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Coin } from './Coin';
 import { ObjectId } from 'mongodb';
+import { BaseEntity } from '../../../shared/base.entity';
 
 @Entity()
 @Index('unique_user_account', ['userId', 'id'], { unique: true })

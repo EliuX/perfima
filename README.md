@@ -28,8 +28,7 @@ Before you begin, ensure you have the following installed:
 - **ORM**: TypeORM
 
 ### Frontend (Webapp)
-- **Framework**: ReactJS
-- **State Management**: TBD (e.g., Redux, Context API)
+- **Framework**: ReactJS/NextJS
 
 
 ### Installation
@@ -52,7 +51,6 @@ This is an starting point for executing these applications, but for more informa
 check their respective README.md files.
 
 #### API (Backend)
-
 1. Navigate to the API folder:
 
     ```bash

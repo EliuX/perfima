@@ -4,10 +4,7 @@ import { UpdateAccountDto } from './dto/update-account.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
 import { Account } from './entities/account.entity';
-import {
-  convertObjectIdToString,
-  convertStringToObjectId,
-} from '../../shared/entityUtils';
+import { convertStringToObjectId } from '../../shared/entityUtils';
 
 @Injectable()
 export class AccountService {
@@ -25,12 +22,13 @@ export class AccountService {
     return this.accountRepository.save(newAccount);
   }
 
-  findAll(userId: string) {
+  findAll(userId?: string) {
     return this.accountRepository.find({
-      userId: convertStringToObjectId(userId),
+      userId: userId ? convertStringToObjectId(userId) : undefined,
     });
   }
 
+  //ToFix
   async findOne(uid: string, userId?: string): Promise<Account> {
     const foundAccount = await this.accountRepository.findOneBy({
       id: convertStringToObjectId(uid),
@@ -57,7 +55,7 @@ export class AccountService {
   async remove(uid: string, userId?: string) {
     const result = await this.accountRepository.delete({
       id: convertStringToObjectId(uid),
-      userId: convertStringToObjectId(userId),
+      userId: userId ? convertStringToObjectId(userId) : undefined,
     });
 
     if (!result.affected) {
