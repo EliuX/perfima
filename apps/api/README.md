@@ -1,5 +1,5 @@
-API
-===== 
+Perfima API
+===============
 
 This is an API for the Perfima project. It uses the [Nest](https://github.com/nestjs/nest) framework.
 
@@ -38,9 +38,10 @@ This is an API for the Perfima project. It uses the [Nest](https://github.com/ne
    $ yarn start
    ```
     
-   Open your browser and navigate to http://localhost:3000/.
+   Open your browser and navigate to http://localhost:8080/.
 
-   > You can change the port with the env variable `PORT`
+   > You can change the port with the env variable `PORT`, which by default is `3000`. I personally set it to `8080` or 
+   > `3001` so it won't conflict with the webapp.
 
 ### Authenticate
 

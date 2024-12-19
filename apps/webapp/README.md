@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+Perfima API
+===============
 
-This is the webapp for the Perfima project. It uses [ReactJS](https://reactjs.org/).
+This is the webapp for the Perfima project. It uses [ReactJS](https://reactjs.org/) and [Material UI](https://github.com/mui/material-ui).
 
 ## Project setup
 
@@ -14,7 +15,7 @@ The following command runs the app in the development mode:
 
 ```bash
 # development
-$ yarn run start
+$ yarn start
 ``` 
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
