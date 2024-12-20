@@ -26,5 +26,4 @@ import { JwtConfigService } from '../../auth/jwt-config.service';
   providers: [AccountService],
   exports: [AccountService],
 })
-export class AccountModule {
-}
+export class AccountModule {}

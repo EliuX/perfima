@@ -1,0 +1,36 @@
+name: Tests and Lint
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  lint:
+    name: Linter
+
+  test-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+
+      - name: Install dependencies
+        working-directory: ./
+        run: yarn install
+
+      - name: Run tests
+        working-directory: ./
+        run: npm run test:all
+
+      - name: Run linter
+        working-directory: ./
+        run: npm run lint # or yarn lint, or your preferred lint command.  Adjust package.json to define this script if it does not exist.
+

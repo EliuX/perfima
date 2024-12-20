@@ -1,6 +1,5 @@
 import { ArgumentsHost } from '@nestjs/common';
 
-
 export const respondWithStandardFormat = (
   host: ArgumentsHost,
   statusCode: number,
