@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "c44dcbe0-49d6-4afb-89ef-13a110a02fde",
+		"name": "Perfima API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1292097"
+	},
+	"item": [
+		{
+			"name": "Create new user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"name\": \"Postman User\",\n  \"email\": \"postman.user@perfima.com\",\n  \"password\": \"motdepasse\",\n  \"phoneNumber\": \"+15551234567\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{perfima_api_host}}/users",
+					"host": [
+						"{{perfima_api_host}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set JWT in environment\", function () {",
+							"    var jsonData = pm.response.json();  ",
+							"    pm.environment.set(\"JWT\", jsonData.access_token); ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"postman.user@perfima.com\",\n  \"password\": \"motdepasse\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{perfima_api_host}}/auth/login",
+					"host": [
+						"{{perfima_api_host}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check active profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"postman.user@perfima.com\",\n  \"password\": \"motdepasse\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{perfima_api_host}}/auth/profile",
+					"host": [
+						"{{perfima_api_host}}"
+					],
+					"path": [
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create account for active user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"USD Bank Account\",  \n  \"amount\": 200,\n  \"type\": \"USD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{perfima_api_host}}/accounts",
+					"host": [
+						"{{perfima_api_host}}"
+					],
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get accounts available",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{perfima_api_host}}/accounts",
+					"host": [
+						"{{perfima_api_host}}"
+					],
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get account of active user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{perfima_api_host}}/accounts/6763bc17d76350930f613392",
+					"host": [
+						"{{perfima_api_host}}"
+					],
+					"path": [
+						"accounts",
+						"6763bc17d76350930f613392"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update account by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{perfima_api_host}}/accounts",
+					"host": [
+						"{{perfima_api_host}}"
+					],
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove accounts of active user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{perfima_api_host}}/accounts/6763bc17d76350930f613392",
+					"host": [
+						"{{perfima_api_host}}"
+					],
+					"path": [
+						"accounts",
+						"6763bc17d76350930f613392"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{JWT}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
