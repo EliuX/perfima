@@ -1,9 +1,22 @@
 'use client';
 
-import { Alert, Box, Button, CircularProgress, Container, CssBaseline, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  CssBaseline,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from '@mui/material';
 import axios from 'axios';
-import { ApiServices } from '../../config';
-import React, {useState} from "react";
+import { ApiServices, LocalStorageItem } from '../../config';
+import React, { useEffect, useState } from 'react';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import { useRouter } from 'next/navigation';
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');
@@ -11,10 +24,12 @@ export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
   const [jwtToken, setJwtToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     setError(null);
 
     try {
@@ -26,25 +41,34 @@ export default function SignInPage() {
       const token = response.data.access_token;
 
       setJwtToken(token);
-      localStorage.setItem('jwtToken', token);
+      localStorage.setItem(LocalStorageItem.JWT_TOKEN, token);
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data.message || 'Login failed.');
       } else {
         setError('An unexpected error occurred.');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (jwtToken) {
-    return (
-      <div>
-        <Typography variant="h6">Login Successful!</Typography>
-        <Typography>JWT Token: {jwtToken}</Typography>
-        <p>You are now logged in.</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    setLoading(true);
+
+    if(!jwtToken) {
+      const existingJwtToken = localStorage.getItem(LocalStorageItem.JWT_TOKEN);
+      if (existingJwtToken) {
+        setJwtToken(existingJwtToken);
+      }
+    }
+
+    if (jwtToken) {
+      router.push("/dashboard");
+    }
+
+    setLoading(false);
+  }, [router, jwtToken, setLoading]);
 
   return (
     <Container maxWidth="lg">
@@ -68,30 +92,29 @@ export default function SignInPage() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <FormControl fullWidth margin="normal" variant="outlined">
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <OutlinedInput
+                id="email"
+                type="email"
+                label="Email Address"
+                autoComplete="email" // Key for browser caching (username)
+                autoFocus
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormControl>
+            <FormControl fullWidth margin="normal" variant="outlined">
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <OutlinedInput
+                id="password"
+                label="Password"
+                type="password"
+                autoComplete="current-password" // Key for browser caching (password)
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FormControl>
             <Button
               type="submit"
               fullWidth

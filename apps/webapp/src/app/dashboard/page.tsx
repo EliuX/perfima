@@ -3,19 +3,20 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { LocalStorageItem } from '@/config';
 
 export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(LocalStorageItem.JWT_TOKEN);
     if (!token) {
       router.push('/sign-in');
     }
   }, [router]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem(LocalStorageItem.JWT_TOKEN);
     router.push('/sign-in');
   };
 
