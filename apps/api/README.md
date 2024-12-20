@@ -48,16 +48,16 @@ This is an API for the Perfima project. It uses the [Nest](https://github.com/ne
 For authenticating using the credentials of an existing user you must use the following
 command:
 
-### Postman
-
-You can import into Postman the collection exported as _[Perfima API.postman_collection.json](Perfima%20API.postman_collection.json)_
-located in the docs folder.
-
-
 ```bash
 $ curl -X POST http://localhost:3000/auth/login -d '{"username": "6763819045fff580d4e42ffc", "password": "stringst"}' -H "Content-Type: application/json"
 {"access_token":"jwt has here...."}
 ```
+
+### Postman
+
+You can import into Postman the collection exported as _[Perfima API.postman_collection.json](Perfima%20API.postman_collection.json)_
+located in the docs folder. Use it to ease the manual testing of the API.
+
 
 ## Run tests
 

@@ -19,7 +19,7 @@ import { JwtConfigService } from './jwt-config.service';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtConfigService],
-  exports: [AuthService, JwtConfigService],
+  exports: [AuthService, JwtConfigService, UserModule],
 })
 export class AuthModule {
 }
