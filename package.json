@@ -5,8 +5,14 @@
   "workspaces": [
     "apps/*"
   ],
+  "engines": {
+    "node": ">=18.20.3",
+    "yarn": "^1.22.17"
+  },
   "scripts": {
-    "lint": "lerna lint"
+    "build": "lerna run build",
+    "lint": "lerna run lint --scope @perfima/api",
+    "test": "lerna run test"
   },
   "dependencies": {},
   "devDependencies": {
