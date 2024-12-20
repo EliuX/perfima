@@ -1,4 +1,6 @@
 # Perfima Project
+[![Tests & Lint](https://github.com/EliuX/perfima/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/EliuX/perfima/actions/workflows/build-and-test.yml)
+
 
 Welcome to the **Perfima Project**, a full-stack application designed to manage personal finance accounts. This 
 repository contains two main subprojects:
@@ -100,4 +102,4 @@ check their respective README.md files.
 
 ## License
 
-This project is licensed under the terms of the MIT license
+This project is not licensed. Use it under the terms of the MIT license.
